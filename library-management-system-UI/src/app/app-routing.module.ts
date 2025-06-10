@@ -1,7 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { PageHeaderComponent } from './shared/components/page-header/page-header.component';
+import { SharedModule } from './shared/shared.module';
+import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
 
-const routes: Routes = [];
+
+const routes: Routes = [
+
+  {path: "**", component: PageNotFoundComponent},
+
+];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
