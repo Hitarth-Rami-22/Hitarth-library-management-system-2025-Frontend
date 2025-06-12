@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { TokenStorageService } from 'src/app/shared/token-storage.service';
+import { TokenStorageService } from 'src/app/shared/token-storage/token-storage.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
