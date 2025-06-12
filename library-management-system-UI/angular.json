@@ -97,7 +97,11 @@
               "@angular/material/prebuilt-themes/purple-green.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "styles": [
+              "node_modules/animate.css/animate.min.css",
+              "src/styles.scss"
+            ]
           }
         }
       }

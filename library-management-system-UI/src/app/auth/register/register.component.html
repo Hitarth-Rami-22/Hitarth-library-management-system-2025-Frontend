@@ -1,0 +1,66 @@
+<!-- <p>register works!</p>
+<h2>Register</h2>
+<form (ngSubmit)="register()">
+  <input [(ngModel)]="form.fullName" name="fullName" placeholder="Full Name" required />
+  <input [(ngModel)]="form.email" name="email" placeholder="Email" type="email" required />
+  <input [(ngModel)]="form.password" name="password" type="password" placeholder="Password" required />
+  <select [(ngModel)]="form.userType" name="userType">
+    <option value="Student">Student</option>
+    <option value="Librarian">Librarian</option>
+    <option value="Admin">Admin</option>
+  </select>
+  <button type="submit">Register</button>
+</form>
+<p *ngIf="message">{{ message }}</p> -->
+<div class="register-page">
+  <!-- Left Card: Registration Form -->
+  <div class="register-card glass-effect animate__animated animate__fadeInLeft">
+    <h2>Create Account ✍️</h2>
+    <p class="subtitle">Fill the details below to register into the Library Management System.</p>
+
+    <p *ngIf="message" style="color: #00ffcc; font-weight: bold;">{{ message }}</p>
+    <p *ngIf="error" style="color: #ff6b6b; font-weight: bold;">{{ error }}</p>
+
+    <form #registerForm="ngForm" (ngSubmit)="register()" class="register-form">
+      <div class="form-group">
+        <label for="fullName">👤 Full Name</label>
+        <input type="text" id="fullName" name="fullName" [(ngModel)]="form.fullName" required />
+      </div>
+
+      <div class="form-group">
+        <label for="email">📧 Email</label>
+        <input type="email" id="email" name="email" [(ngModel)]="form.email" required />
+      </div>
+
+      <div class="form-group">
+        <label for="password">🔐 Password</label>
+        <input type="password" id="password" name="password" [(ngModel)]="form.password" required minlength="6" />
+      </div>
+
+      <div class="form-group">
+        <label for="userType">🧑‍🎓 User Type</label>
+        <select id="userType" name="userType" [(ngModel)]="form.userType" required>
+          <option value="Student">Student</option>
+          <option value="Librarian">Librarian</option>
+          <option value="Admin">Admin</option>
+        </select>
+      </div>
+
+      <button type="submit" [disabled]="!registerForm.valid">Register</button>
+    </form>
+
+    <div class="register-link">
+      <span>Already have an account?</span>
+      <a routerLink="/login">Login here</a>
+    </div>
+  </div>
+
+  <!-- Right Card: Slideshow -->
+  <div class="register-slideshow glass-effect animate__animated animate__fadeInRight">
+    <div class="slideshow-wrapper">
+  <img *ngFor="let image of slideshowImages; let i = index"
+       [src]="image"
+       [class.active]="i === currentImageIndex"
+       alt="Library Slide" />
+    </div>
+  </div>

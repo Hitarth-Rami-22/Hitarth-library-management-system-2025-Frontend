@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { SharedModule } from './shared/shared.module';
+import { OnInit } from '@angular/core';
+import { AuthService } from './auth/auth.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -7,6 +9,12 @@ import { SharedModule } from './shared/shared.module';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+   constructor(private auth: AuthService, private router: Router) {}
+   ngOnInit() {
+    if (this.auth.autoLogin()) {
+      this.router.navigate(['/dashboard']);
+    }
+  }
   title = 'library-management-system-UI';
 }

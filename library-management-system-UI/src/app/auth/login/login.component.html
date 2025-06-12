@@ -1,0 +1,58 @@
+<!-- <p>login works!</p> -->
+
+<div class="login-page">
+  <div class="login-card glass-effect animate__animated animate__fadeInLeft">
+    <h2>Welcome Back 👋</h2>
+    <p class="subtitle">We're happy to see you again! Please log in to access the Library Management System.</p>
+
+    <p *ngIf="message" style="color: #00ffcc; font-weight: bold;">{{ message }}</p>
+    <p *ngIf="error" style="color: #ff6b6b; font-weight: bold;">{{ error }}</p>
+
+
+    <form (ngSubmit)="login()" #loginForm="ngForm" class="login-form">
+      <div class="form-group">
+        <label for="email">📧 Email</label>
+        <input type="email" id="email" name="email" [(ngModel)]="form.email" required />
+      </div>
+
+      <div class="form-group">
+        <label for="password">🔒 Password</label>
+        <input type="password" id="password" name="password" [(ngModel)]="form.password" required />
+      </div>
+
+      <div class="form-group remember-me">
+        <input type="checkbox" id="remember" />
+        <label for="remember">Remember me</label>
+      </div>
+
+      <button type="submit" [disabled]="!loginForm.valid">Login</button>
+    </form>
+     <!-- Register Link Card -->
+  <div class="register-link">
+    <span>Don't have an account? </span>
+    <a routerLink="/register">Register here</a>
+  </div>
+  </div>
+
+
+
+  <div class="testimonials glass-effect animate__animated animate__fadeInRight">
+    <h3>📋 Registered Admins & Librarians</h3>
+    <div class="scrollable-list" *ngIf="userList.length > 0; else loading">
+      <ul>
+        <li *ngFor="let user of userList">
+          <div class="user-entry">
+            <div class="avatar">{{ user.fullName.charAt(0) }}</div>
+            <div class="user-info">
+              <strong>{{ user.fullName }}</strong>
+              <span class="role">{{ user.userType }}</span>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <ng-template #loading>
+      <p>Loading users...</p>
+    </ng-template>
+  </div>
+</div>
