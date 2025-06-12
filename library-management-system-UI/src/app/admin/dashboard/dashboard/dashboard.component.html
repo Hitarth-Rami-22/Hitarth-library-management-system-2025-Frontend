@@ -1,0 +1,32 @@
+<p>dashboard works!</p>
+<h2>Admin Dashboard</h2>
+
+<table border="1" cellpadding="8">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Full Name</th>
+      <th>Email</th>
+      <th>Role</th>
+      <th>Blocked</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users">
+      <td>{{ user.id }}</td>
+      <td>{{ user.fullName }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.userType }}</td>
+      <td>{{ user.isBlocked ? 'Yes' : 'No' }}</td>
+      <td>
+        <button (click)="toggleBlock(user)">
+          {{ user.isBlocked ? 'Unblock' : 'Block' }}
+        </button>
+        <button (click)="toggleLibrarian(user)">
+          {{ user.userType === 'Librarian' ? 'Revoke Librarian' : 'Assign Librarian' }}
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
