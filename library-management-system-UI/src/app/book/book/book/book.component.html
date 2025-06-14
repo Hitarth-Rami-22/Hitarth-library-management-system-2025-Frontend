@@ -1,0 +1,67 @@
+<div class="book-page">
+  <div class="book-card glass-effect animate__animated animate__fadeInDown">
+    <h2>📚 Book Management</h2>
+
+    <div *ngIf="isLibrarianOrAdmin()">
+      <form (ngSubmit)="saveBook()" #bookForm="ngForm" class="book-form" novalidate>
+        <div class="form-group">
+          <input [(ngModel)]="form.title" name="title" required placeholder="Title"
+                 [ngClass]="{'invalid': submitted && !isValidTitle()}" />
+          <small *ngIf="submitted && form.title.trim().length < 3" class="error">Title must be at least 3 characters.</small>
+        </div>
+
+        <div class="form-group">
+          <input [(ngModel)]="form.author" name="author" required placeholder="Author"
+                 [ngClass]="{'invalid': submitted && !isValidAuthor()}" />
+          <small *ngIf="submitted && form.author.trim().length < 3" class="error">Author must be at least 3 characters.</small>
+        </div>
+
+        <div class="form-group">
+          <input [(ngModel)]="form.isbn" name="isbn" required placeholder="ISBN"
+                 [ngClass]="{'invalid': submitted && !form.isbn.trim()}" />
+        </div>
+
+        <div class="form-group">
+          <input [(ngModel)]="form.quantity" name="quantity" type="number" required min="1" placeholder="Quantity"
+                 [ngClass]="{'invalid': submitted && form.quantity < 1}" />
+        </div>
+
+
+        <div class="button-group">
+          <button type="submit">{{ isEditing ? 'Update' : 'Add' }} Book</button>
+          <button type="button" (click)="resetForm()" *ngIf="isEditing">Cancel</button>
+        </div>
+      </form>
+    </div>
+
+    <hr />
+
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>ISBN</th>
+            <th>Quantity</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let book of books">
+            <td>{{ book.id }}</td>
+            <td>{{ book.title }}</td>
+            <td>{{ book.author }}</td>
+            <td>{{ book.isbn }}</td>
+            <td>{{ book.quantity }}</td>
+            <td>
+              <button type="button" (click)="editBook(book)" *ngIf="isLibrarianOrAdmin()">Edit</button>
+              <button type="button" (click)="deleteBook(book.id)" *ngIf="isAdmin()">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

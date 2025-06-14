@@ -5,9 +5,9 @@ import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
 import { inject } from '@angular/core';
 
-@Injectable({
-  providedIn: 'root'
-})
+// @Injectable({
+//   providedIn: 'root'
+// })
 export const authGuard: CanActivateFn = (route, state) => {
    const tokenStore = inject(TokenStorageService);
   const router = inject(Router);

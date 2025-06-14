@@ -1,4 +1,4 @@
-<p>dashboard works!</p>
+<!-- <p>dashboard works!</p>
 <h2>Admin Dashboard</h2>
 
 <table border="1" cellpadding="8">
@@ -30,3 +30,101 @@
     </tr>
   </tbody>
 </table>
+<button (click)="logout()">Logout</button>
+<h3>Add New Admin or Librarian</h3>
+<form (ngSubmit)="registerUser()">
+  <input [(ngModel)]="newUser.fullName" name="fullName" placeholder="Full Name" required />
+  <input [(ngModel)]="newUser.email" name="email" placeholder="Email" type="email" required />
+  <input [(ngModel)]="newUser.password" name="password" type="password" placeholder="Password" required />
+  <select [(ngModel)]="newUser.userType" name="userType">
+    <option value="Librarian">Librarian</option>
+    <option value="Admin">Admin</option>
+  </select>
+  <button type="submit">Register</button>
+</form>
+
+<p *ngIf="registerMsg">{{ registerMsg }}</p>
+
+<button routerLink="/books">📚 Manage Books</button>
+  -->
+
+<div class="dashboard-container">
+  <!-- SIDEBAR -->
+  <aside class="sidebar glass-effect">
+    <h2>📚 LMS Admin</h2>
+    <button (click)="showForm = !showForm" class="sidebar-btn">
+      ➕ {{ showForm ? 'Close Form' : 'Add User' }}
+    </button>
+    <button routerLink="/books" class="sidebar-btn">
+      📖 Manage Books
+    </button>
+    <button (click)="logout()" class="sidebar-btn logout">
+      🚪 Logout
+    </button>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    <div class="dashboard-card glass-effect animate__animated animate__fadeInDown">
+      <h3>👥 Registered Users</h3>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Full Name</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Blocked</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of users">
+              <td>{{ user.id }}</td>
+              <td>{{ user.fullName }}</td>
+              <td>{{ user.email }}</td>
+              <td>{{ user.userType }}</td>
+              <td>{{ user.isBlocked ? 'Yes' : 'No' }}</td>
+              <td>
+                <button class="action-btn" (click)="toggleBlock(user)">
+                  {{ user.isBlocked ? 'Unblock' : 'Block' }}
+                </button>
+                <button class="action-btn" (click)="toggleLibrarian(user)">
+                  {{ user.userType === 'Librarian' ? 'Revoke Librarian' : 'Assign Librarian' }}
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- FORM -->
+      <!-- MODAL FORM OVERLAY -->
+<div *ngIf="showForm" class="modal-overlay" (click)="closeForm()">
+  <div class="modal-form animate__animated animate__zoomIn" (click)="$event.stopPropagation()">
+    <h3 class="section-title">➕ Add Admin or Librarian</h3>
+    <form (ngSubmit)="registerUser()" #userForm="ngForm" class="user-form" novalidate>
+      <input [(ngModel)]="newUser.fullName" name="fullName" required placeholder="Full Name"
+             [ngClass]="{'invalid': userForm.submitted && !newUser.fullName.trim()}" />
+
+      <input [(ngModel)]="newUser.email" name="email" required email placeholder="Email"
+             [ngClass]="{'invalid': userForm.submitted && !validateEmail(newUser.email)}" />
+
+      <input [(ngModel)]="newUser.password" name="password" type="password" required minlength="6" placeholder="Password"
+             [ngClass]="{'invalid': userForm.submitted && newUser.password.length < 6}" />
+
+      <select [(ngModel)]="newUser.userType" name="userType">
+        <option value="Librarian">Librarian</option>
+        <option value="Admin">Admin</option>
+      </select>
+
+      <button type="submit">Register</button>
+    </form>
+
+    <p *ngIf="registerMsg" class="info-msg">{{ registerMsg }}</p>
+
+    <button class="close-btn" (click)="closeForm()">❌ Close</button>
+  </div>
+</div>

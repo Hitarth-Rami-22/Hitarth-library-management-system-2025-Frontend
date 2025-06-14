@@ -1,0 +1,208 @@
+@import 'animate.css';
+
+.dashboard-container {
+  display: flex;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  font-family: 'Segoe UI', sans-serif;
+  color: #fff;
+  overflow-x: hidden;
+}
+
+.sidebar {
+  width: 240px;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: flex-start;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.sidebar h2 {
+  margin-bottom: 1rem;
+}
+
+.sidebar-btn {
+  background: rgba(0, 198, 255, 0.2);
+  color: white;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.sidebar-btn:hover {
+  background: rgba(0, 198, 255, 0.4);
+}
+
+.logout {
+  background: rgba(255, 107, 107, 0.2);
+}
+.logout:hover {
+  background: rgba(255, 107, 107, 0.4);
+}
+
+.main-content {
+  flex: 1;
+  padding: 2rem;
+}
+
+.glass-effect {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.3);
+  backdrop-filter: blur(12px);
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  margin-bottom: 1.5rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+th {
+  color: #90caf9;
+}
+
+tr:nth-child(even) td {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.action-btn {
+  background: #00c6ff;
+  border: none;
+  padding: 0.4rem 0.7rem;
+  margin-right: 0.3rem;
+  border-radius: 0.4rem;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.action-btn:hover {
+  background: #0072ff;
+}
+
+.user-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+input, select {
+  padding: 0.6rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 0.5rem;
+  color: #fff;
+  font-size: 1rem;
+}
+
+select option {
+  background: #1e293b;
+}
+
+button[type="submit"] {
+  grid-column: span 2;
+  background: linear-gradient(to right, #0072ff, #00c6ff);
+  border: none;
+  padding: 0.7rem;
+  border-radius: 0.5rem;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.info-msg {
+  color: #00ffcc;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+.invalid {
+  border: 2px solid #ff6b6b !important;
+}
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-form {
+  background: rgba(30, 41, 59, 0.95); // slightly transparent dark
+  /* remove glassy look */
+  padding: 2rem;
+  border-radius: 1.5rem;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  // position: relative;
+}
+
+
+.modal-form h3 {
+  margin-top: 0;
+}
+
+.modal-form .user-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.modal-form .user-form input,
+.modal-form .user-form select {
+  padding: 0.6rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 0.5rem;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.modal-form button[type="submit"] {
+  background: linear-gradient(to right, #0072ff, #00c6ff);
+  border: none;
+  padding: 0.7rem;
+  border-radius: 0.5rem;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close-btn {
+  margin-top: 1rem;
+  background: #ff6b6b;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-weight: bold;
+}

@@ -16,10 +16,25 @@ getToken() {
   }
 
   getUserRole(): string {
-    const token = this.getToken();
-    if (!token) return '';
+  const token = this.getToken();
+  if (!token) return '';
+  try {
     const payload = JSON.parse(atob(token.split('.')[1]));
-    return payload['role'];
-  
-  }   constructor() { }
+    console.log('Decoded Payload:', payload);
+
+    // ✅ Use correct role key
+    const role = payload["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+    
+    // ✅ Save to localStorage
+    localStorage.setItem('role', role);
+
+    return role;
+  } catch (error) {
+     localStorage.removeItem('role');
+    console.error('Token decode failed', error);
+    return '';
+  }
+}
+
+  constructor() { }
 }

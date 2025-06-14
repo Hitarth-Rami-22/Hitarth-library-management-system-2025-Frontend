@@ -9,6 +9,11 @@ export class AdminService {
     private baseUrl = 'https://localhost:7255/api/Admin';
 
   constructor(private http: HttpClient, private tokenStore: TokenStorageService, private httpClient: HttpClient) { }
+
+  registerUser(data: any) {
+  return this.http.post('https://localhost:7255/api/auth/register', data);
+}
+
   getAllUsers() {
     return this.http.get(`${this.baseUrl}/users`);
   }

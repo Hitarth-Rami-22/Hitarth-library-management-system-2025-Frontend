@@ -54,6 +54,8 @@ export class LoginComponent {
       },
       error: (err) => {
          this.error = 'Login failed: ' + ('Invalid credentials');
+          const errorMsg = err.error || 'Login failed. Please try again.';
+          //alert(errorMsg); // You can improve this with a toast/snackbar
       }
     });
   }

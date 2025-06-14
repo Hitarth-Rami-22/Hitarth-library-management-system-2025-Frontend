@@ -11,13 +11,20 @@ import { HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from './admin/dashboard/dashboard/dashboard.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from 'src/app/shared/intercepter/auth.interceptor';
+import { BookComponent } from './book/book/book/book.component';
+import { TokenStorageService } from './shared/token-storage/token-storage.service';
+import { AuthService } from './auth/auth.service';
+import { AdminService } from './admin/service/admin.service';
+import { Router } from '@angular/router';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    DashboardComponent
+    DashboardComponent,
+    BookComponent
+
   ],
   imports: [
     BrowserModule,
@@ -25,7 +32,6 @@ import { AuthInterceptor } from 'src/app/shared/intercepter/auth.interceptor';
     FormsModule,
     BrowserAnimationsModule,
     HttpClientModule
-
   ],
   providers: [
      { provide: HTTP_INTERCEPTORS, 

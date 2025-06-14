@@ -11,9 +11,36 @@ import { AuthService } from 'src/app/auth/auth.service';
 })
 export class DashboardComponent implements OnInit {
 
-   users: any[] = [];
+  users: any[] = [];
+  registerMsg = '';
+  showForm: boolean = false; // 🔹 Controls Add User form visibility
 
-  constructor(private adminService: AdminService) {}
+
+    newUser = {
+    fullName: '',
+    email: '',
+    password: '',
+    userType: 'Librarian'
+};
+
+  constructor(private adminService: AdminService, private tokenService: TokenStorageService, private router: Router) {}
+
+  registerUser() {
+  this.adminService.registerUser(this.newUser).subscribe({
+    next: (res: any) => {
+      this.registerMsg = res.message || 'User registered';
+      this.newUser = { fullName: '', email: '', password: '', userType: 'Librarian' };
+      this.loadUsers(); // Refresh user list
+      this.showForm = false; // 🔹 Auto close form on success
+
+      
+    },
+    error: (err) => {
+      alert('Failed to register user');
+      console.error(err);
+    }
+  });
+}
 
   ngOnInit(): void {
     this.loadUsers();
@@ -48,4 +75,18 @@ export class DashboardComponent implements OnInit {
       error: () => alert('Failed to update role.')
     });
   }
+  validateEmail(email: string): boolean {
+  const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return pattern.test(email);
+}
+closeForm() {
+  this.showForm = false;
+}
+
+
+  logout() {
+  this.tokenService.clear();
+  this.router.navigate(['/login']);
+}
+
 }
