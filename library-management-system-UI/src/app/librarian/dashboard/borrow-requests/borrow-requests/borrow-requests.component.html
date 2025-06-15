@@ -1,0 +1,14 @@
+<p>borrow-requests works!</p>
+<h2>Borrow Requests</h2>
+<table border="1" cellpadding="8">
+  <tr *ngFor="let r of requests">
+    <td>{{ r.book.title }}</td>
+    <td>{{ r.student.fullName }}</td>
+    <td>{{ r.status }}</td>
+    <td>
+      <button (click)="updateStatus(r.id, 'Approved')" [disabled]="r.status !== 'Pending'">Approve</button>
+      <button (click)="updateStatus(r.id, 'Rejected')" [disabled]="r.status !== 'Pending'">Reject</button>
+      <button (click)="updateStatus(r.id, 'Returned')" [disabled]="r.status !== 'Approved'">Mark Returned</button>
+    </td>
+  </tr>
+</table>

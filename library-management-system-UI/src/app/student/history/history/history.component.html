@@ -1,0 +1,11 @@
+<p>history works!</p>
+<h2>Borrow History</h2>
+<table border="1" cellpadding="8">
+  <tr *ngFor="let r of history">
+    <td>{{ r.book.title }}</td>
+    <td>{{ r.status }}</td>
+    <td>{{ r.requestedOn | date:'short' }}</td>
+    <td *ngIf="r.approvedOn">✔ {{ r.approvedOn | date:'short' }}</td>
+    <td *ngIf="r.returnedOn">✔ {{ r.returnedOn | date:'short' }}</td>
+  </tr>
+</table>

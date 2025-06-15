@@ -16,6 +16,11 @@ import { TokenStorageService } from './shared/token-storage/token-storage.servic
 import { AuthService } from './auth/auth.service';
 import { AdminService } from './admin/service/admin.service';
 import { Router } from '@angular/router';
+import { LibrarianDashboardComponent } from './librarian/dashboard/librarian-dashboard/librarian-dashboard.component';
+import { StudentDashboardComponent } from './student/dashboard/student-dashboard/student-dashboard.component';
+import { BorrowComponent } from './student/borrow/borrow/borrow.component';
+import { HistoryComponent } from './student/history/history/history.component';
+import { BorrowRequestsComponent } from './librarian/dashboard/borrow-requests/borrow-requests/borrow-requests.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +28,12 @@ import { Router } from '@angular/router';
     LoginComponent,
     RegisterComponent,
     DashboardComponent,
-    BookComponent
+    BookComponent,
+    LibrarianDashboardComponent,
+    StudentDashboardComponent,
+    BorrowComponent,
+    HistoryComponent,
+    BorrowRequestsComponent
 
   ],
   imports: [

@@ -35,6 +35,17 @@ getToken() {
     return '';
   }
 }
+getTokenPayload(): any {
+  const token = this.getToken();
+  if (!token) return null;
+  try {
+    return JSON.parse(atob(token.split('.')[1]));
+  } catch (error) {
+    console.error('Failed to decode token', error);
+    return null;
+  }
+}
+
 
   constructor() { }
 }

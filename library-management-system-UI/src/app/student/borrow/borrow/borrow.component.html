@@ -1,0 +1,12 @@
+<p>borrow works!</p>
+<h2>Available Books</h2>
+<table border="1" cellpadding="8">
+  <tr *ngFor="let book of books">
+    <td>{{ book.title }}</td>
+    <td>{{ book.author }}</td>
+    <td>{{ book.quantity }}</td>
+    <td>
+      <button (click)="borrow(book.id)">Borrow</button>
+    </td>
+  </tr>
+</table>
