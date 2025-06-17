@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from './admin/dashboard/dashboard/dashboard.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+//import { AuthInterceptor } from 'src/app/shared/intercepter/auth.interceptor';
 import { AuthInterceptor } from 'src/app/shared/intercepter/auth.interceptor';
 import { BookComponent } from './book/book/book/book.component';
 import { TokenStorageService } from './shared/token-storage/token-storage.service';
@@ -21,6 +22,13 @@ import { StudentDashboardComponent } from './student/dashboard/student-dashboard
 import { BorrowComponent } from './student/borrow/borrow/borrow.component';
 import { HistoryComponent } from './student/history/history/history.component';
 import { BorrowRequestsComponent } from './librarian/dashboard/borrow-requests/borrow-requests/borrow-requests.component';
+import { SidebarLayoutComponent } from './shared/sidebar-layout/sidebar-layout/sidebar-layout.component';
+import { ReturnRequestsComponent } from './student/student-book-request/return-requests/return-requests.component';
+import { StudentSidebarLayoutComponent } from './student/sidebar-student-layout/student-sidebar-layout/student-sidebar-layout.component';
+import { ReturnApprovalsComponent } from './librarian/dashboard/return-approvals/return-approvals/return-approvals.component';
+import { WishlistComponent } from './student/wishlist/wishlist/wishlist/wishlist.component';
+import { NotificationsComponent } from './student/notifications/notifications/notifications.component';
+
 
 @NgModule({
   declarations: [
@@ -33,7 +41,13 @@ import { BorrowRequestsComponent } from './librarian/dashboard/borrow-requests/b
     StudentDashboardComponent,
     BorrowComponent,
     HistoryComponent,
-    BorrowRequestsComponent
+    BorrowRequestsComponent,
+    SidebarLayoutComponent,
+    ReturnRequestsComponent,
+    StudentSidebarLayoutComponent,
+    ReturnApprovalsComponent,
+    WishlistComponent,
+    NotificationsComponent
 
   ],
   imports: [

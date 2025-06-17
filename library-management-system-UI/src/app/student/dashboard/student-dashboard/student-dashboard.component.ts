@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./student-dashboard.component.scss']
 })
 export class StudentDashboardComponent {
+  studentMenu = [
+  { label: '📚 Borrow Book', route: 'borrow' },
+  { label: '🕓 View History', route: 'history' },
+  { label: '🧡 Wishlist', route: 'wishlist' }
+  // Add more in future
+];
 
 }

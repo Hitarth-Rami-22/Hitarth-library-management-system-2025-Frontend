@@ -1,0 +1,27 @@
+.layout {
+  display: flex;
+  height: 100vh;
+}
+.sidebar {
+  width: 220px;
+  background-color: #f3f3f3;
+  padding: 10px;
+  border-right: 1px solid #ccc;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+.sidebar a {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+  color: #333;
+}
+.sidebar a:hover {
+  background-color: #e0e0e0;
+}
+.content {
+  flex-grow: 1;
+  padding: 20px;
+}

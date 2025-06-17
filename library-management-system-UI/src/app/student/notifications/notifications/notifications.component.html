@@ -1,0 +1,28 @@
+<!-- <p>notifications works!</p>
+<h2>🔔 Notifications</h2>
+
+<div *ngIf="notifications.length === 0">
+  <p>No notifications yet.</p>
+</div>
+
+<ul *ngIf="notifications.length > 0">
+  <li *ngFor="let n of notifications">
+    <div [style.font-weight]="n.isRead ? 'normal' : 'bold'">
+      📚 {{ n.message }} <br>
+      <small>{{ n.createdOn | date:'short' }}</small>
+    </div>
+    <button *ngIf="!n.isRead" (click)="markAsRead(n.id)">Mark as Read</button>
+    <hr />
+  </li>
+</ul> -->
+<ul *ngIf="notifications.length > 0">
+  <li *ngFor="let n of notifications" [class.read]="n.isRead">
+
+    <div [style.font-weight]="n.isRead ? 'normal' : 'bold'">
+      📚 <strong>{{ n.book?.title }}</strong> is now available! <br>
+      <small>{{ n.createdAt | date:'short' }}</small>
+    </div>
+    <button *ngIf="!n.isRead" (click)="markAsRead(n.id)">Mark as Read</button>
+    <hr />
+  </li>
+</ul>

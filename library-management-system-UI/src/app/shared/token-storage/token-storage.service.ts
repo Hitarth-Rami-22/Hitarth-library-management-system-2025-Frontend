@@ -46,6 +46,20 @@ getTokenPayload(): any {
   }
 }
 
+getUserId(): number {
+  const token = this.getToken();
+  if (!token) return 0;
+
+  try {
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    const id = +payload["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"];
+    return isNaN(id) ? 0 : id;
+  } catch (error) {
+    console.error('Token parsing failed:', error);
+    return 0;
+  }
+}
+
 
   constructor() { }
 }

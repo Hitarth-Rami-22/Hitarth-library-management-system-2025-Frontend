@@ -1,6 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { BorrowServiceService } from 'src/app/student/borrow-service/borrow-service.service';
 
+// export enum BorrowStatus {
+//   Pending = 0,
+//   Approved = 1,
+//   Rejected = 2,
+//   Returned = 3
+// }
+
 @Component({
   selector: 'app-borrow-requests',
   templateUrl: './borrow-requests.component.html',
@@ -8,7 +15,7 @@ import { BorrowServiceService } from 'src/app/student/borrow-service/borrow-serv
 })
 export class BorrowRequestsComponent implements OnInit {
   requests: any[] = [];
-
+  //borrowStatus = BorrowStatus;
   constructor(private borrowServiceService: BorrowServiceService) {}
 
   ngOnInit(): void {
@@ -22,11 +29,26 @@ export class BorrowRequestsComponent implements OnInit {
     });
   }
 
-  updateStatus(id: number, newStatus: string) {
-    this.borrowServiceService.updateStatus({ requestId: id, newStatus }).subscribe({
-      next: () => this.loadRequests(),
-      error: (err) => alert(err.error)
-    });
+  // updateStatus(id: number, newStatus: string) {
+  //   this.borrowServiceService.updateStatus({ requestId: id, newStatus }).subscribe({
+  //     next: () => this.loadRequests(),
+  //     error: (err) => alert(err.error)
+  //   });
+  // }
+updateStatus(id: number, newStatus: number) {
+  this.borrowServiceService.updateStatus({ requestId: id, newStatus }).subscribe({
+    next: () => this.loadRequests(),
+    error: (err) => alert(err.error?.message || 'Failed to update')
+  });
+}
+getStatusText(status: number): string {
+  switch (status) {
+    case 0: return 'Pending';
+    case 1: return 'Approved';
+    case 2: return 'Rejected';
+    case 3: return 'Returned';
+    default: return 'Unknown';
   }
+}
 
 }

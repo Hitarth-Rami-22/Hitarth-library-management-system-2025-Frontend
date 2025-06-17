@@ -13,8 +13,11 @@ export class AppComponent implements OnInit {
    constructor(private auth: AuthService, private router: Router) {}
    ngOnInit() {
     if (this.auth.autoLogin()) {
-      this.router.navigate(['/dashboard']);
-    }
+      const role = this.auth.getRole();
+    if (role === 'Admin') this.router.navigate(['/dashboard']);
+    else if (role === 'Librarian') this.router.navigate(['/librarian-dashboard']);
+    else if (role === 'Student') this.router.navigate(['/student-dashboard']);
+  }
   }
   title = 'library-management-system-UI';
 }

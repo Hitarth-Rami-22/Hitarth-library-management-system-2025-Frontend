@@ -2,8 +2,27 @@
 <h2>Welcome Librarian</h2>
 <p>Here you can manage book approvals and view all borrow requests.</p> -->
 <h2>Welcome Librarian</h2>
-<p>You can manage all student borrow requests from here.</p>
+<!-- <p>You can manage all student borrow requests from here.</p>
 
 <button routerLink="/librarian/requests">📋 View Borrow Requests</button>
 
-<router-outlet></router-outlet>
+<router-outlet></router-outlet> -->
+<app-sidebar-layout ></app-sidebar-layout>
+
+
+
+<!-- This can be your sidebar layout -->
+<div class="librarian-layout">
+  <nav>
+    <ul>
+      <li *ngFor="let item of librarianMenu">
+        <a [routerLink]="item.route">{{ item.label }}</a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Route content will appear here -->
+  <main>
+    <router-outlet></router-outlet>
+  </main>
+</div>

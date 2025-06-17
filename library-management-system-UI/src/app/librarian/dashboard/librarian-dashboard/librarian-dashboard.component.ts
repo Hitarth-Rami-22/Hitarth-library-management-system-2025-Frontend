@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./librarian-dashboard.component.scss']
 })
 export class LibrarianDashboardComponent {
+librarianMenu = [
+  { label: '📋 Borrow Requests', route: 'requests' }, // child route (✅ stays as is)
+  { label: '📖 Manage Books', route: '/books' }        // external route
+];
+
+
 
 }

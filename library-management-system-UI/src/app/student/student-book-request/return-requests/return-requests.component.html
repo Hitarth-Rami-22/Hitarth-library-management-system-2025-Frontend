@@ -1,0 +1,27 @@
+<p>return-requests works!</p>
+<h2>📥 Return Book</h2>
+
+<table border="1" cellpadding="8" *ngIf="approvedBooks.length > 0; else noBooks">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Approved On</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let b of approvedBooks">
+      <td>{{ b.book?.title }}</td>
+      <td>{{ b.approvedOn | date:'short' }}</td>
+      <!-- <td><button (click)="returnBook(b.id)">Return Book</button></td>
+      <td><button (click)="submitReturnRequest(b.id)">Return Book</button></td> -->
+      <td><button (click)="submitReturnRequest(b.id)">📤 Request Return</button></td>
+
+
+    </tr>
+  </tbody>
+</table>
+
+<ng-template #noBooks>
+  <p>No approved books available for return.</p>
+</ng-template>

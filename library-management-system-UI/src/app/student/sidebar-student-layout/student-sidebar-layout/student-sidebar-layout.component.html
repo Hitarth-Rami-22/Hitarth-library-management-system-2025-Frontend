@@ -1,0 +1,19 @@
+<p>student-sidebar-layout works!</p>
+<div class="layout">
+  <aside class="sidebar">
+    <ul>
+      <li><a routerLink="/student-dashboard">🏠 Dashboard</a></li>
+      <li *ngFor="let item of menuItems">
+        <button routerLink="{{ item.route }}">{{ item.label }}</button>
+      </li>
+      <li><a routerLink="/student-dashboard/return-requests">📄 Return Book</a></li>
+            <li><a routerLink="/student-dashboard/notifications">🔔 Notifications</a></li>
+
+    </ul>
+    <button (click)="logout()">🚪 Logout</button>
+  </aside>
+
+  <main class="content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

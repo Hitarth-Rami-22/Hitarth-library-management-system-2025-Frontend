@@ -1,0 +1,25 @@
+<p>return-approvals works!</p>
+<h2>📥 Return Approvals</h2>
+
+<table border="1" cellpadding="8" *ngIf="returnRequests.length > 0; else noRequests">
+  <thead>
+    <tr>
+      <th>Book</th>
+      <th>Student</th>
+      <th>Requested On</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let r of returnRequests">
+      <td>{{ r.book?.title }}</td>
+      <td>{{ r.student?.fullName }}</td>
+      <td>{{ r.approvedOn | date:'short' }}</td>
+      <td><button (click)="approveReturn(r.id)">✅ Approve Return</button></td>
+    </tr>
+  </tbody>
+</table>
+
+<ng-template #noRequests>
+  <p>No pending return requests.</p>
+</ng-template>

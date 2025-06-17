@@ -43,6 +43,12 @@ export class DashboardComponent implements OnInit {
 }
 
   ngOnInit(): void {
+//     const role = this.tokenService.getUserRole();
+
+//   if (role === 'Admin') {
+//     this.loadUsers();
+//   }
+// }
     this.loadUsers();
   }
 
