@@ -1,0 +1,28 @@
+<p>penalty-list works!</p>
+<div class="penalty-container" *ngIf="penalties.length > 0; else noPenalties">
+  <h3>📬 Penalty Details</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Book Title</th>
+        <th>Author</th>
+        <th>Issued On</th>
+        <th>Penalty (₹)</th>
+        <th *ngIf="penalties[0].student">Student Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of penalties">
+        <td>{{ p.book.title }}</td>
+        <td>{{ p.book.author }}</td>
+        <td>{{ p.approvedOn | date: 'mediumDate' }}</td>
+        <td>{{ p.penaltyAmount }}</td>
+        <td *ngIf="p.student">{{ p.student.email }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #noPenalties>
+  <p>No penalties found 🎉</p>
+</ng-template>

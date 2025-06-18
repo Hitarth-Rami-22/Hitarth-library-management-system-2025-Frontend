@@ -15,11 +15,14 @@ import { adminGuard } from './admin/auth-admin/admin.guard';
 import { ReturnApprovalsComponent } from './librarian/dashboard/return-approvals/return-approvals/return-approvals.component';
 import { WishlistComponent } from './student/wishlist/wishlist/wishlist/wishlist.component';
 import { NotificationsComponent } from './student/notifications/notifications/notifications.component';
+import { PenaltyListComponent } from './student/penalty-list/penalty-list/penalty-list.component';
+
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   //{path: 'dashboard', component: DashboardComponent, canActivate: [authGuard]},
+  
   { path: 'dashboard', component: DashboardComponent, canActivate: [adminGuard] },
 
   //{path: 'librarian-dashboard', component: LibrarianDashboardComponent, canActivate: [authGuard]},
@@ -32,6 +35,7 @@ const routes: Routes = [
     { path: 'history', component: HistoryComponent },
     { path: 'return-requests', component: ReturnRequestsComponent },
     { path: 'notifications', component: NotificationsComponent },
+    { path: 'penalties', component: PenaltyListComponent },
 
 
 
@@ -44,7 +48,8 @@ const routes: Routes = [
   children: [
     { path: '', redirectTo: 'requests', pathMatch: 'full' },
     { path: 'requests', component: BorrowRequestsComponent },
-    { path: 'return-approvals',component: ReturnApprovalsComponent}
+    { path: 'return-approvals',component: ReturnApprovalsComponent},
+    { path: 'penalties', component: PenaltyListComponent },
   ]
  },
 //{ path: 'librarian/requests', component: BorrowRequestsComponent, canActivate: [authGuard] },

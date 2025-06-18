@@ -28,6 +28,7 @@ import { StudentSidebarLayoutComponent } from './student/sidebar-student-layout/
 import { ReturnApprovalsComponent } from './librarian/dashboard/return-approvals/return-approvals/return-approvals.component';
 import { WishlistComponent } from './student/wishlist/wishlist/wishlist/wishlist.component';
 import { NotificationsComponent } from './student/notifications/notifications/notifications.component';
+import { PenaltyListComponent } from './student/penalty-list/penalty-list/penalty-list.component';
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import { NotificationsComponent } from './student/notifications/notifications/no
     StudentSidebarLayoutComponent,
     ReturnApprovalsComponent,
     WishlistComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    PenaltyListComponent
 
   ],
   imports: [
@@ -59,7 +61,8 @@ import { NotificationsComponent } from './student/notifications/notifications/no
   ],
   providers: [
      { provide: HTTP_INTERCEPTORS, 
-      useClass: AuthInterceptor, multi: true }
+      useClass: AuthInterceptor, 
+      multi: true }
   ],
   bootstrap: [AppComponent]
 })

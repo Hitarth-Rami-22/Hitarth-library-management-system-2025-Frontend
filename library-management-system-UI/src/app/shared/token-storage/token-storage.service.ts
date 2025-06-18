@@ -52,6 +52,8 @@ getUserId(): number {
 
   try {
     const payload = JSON.parse(atob(token.split('.')[1]));
+    console.log('Decoded Payload:', payload);
+
     const id = +payload["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"];
     return isNaN(id) ? 0 : id;
   } catch (error) {
