@@ -1,28 +1,30 @@
-<!-- <p>notifications works!</p>
-<h2>🔔 Notifications</h2>
 
-<div *ngIf="notifications.length === 0">
-  <p>No notifications yet.</p>
+<div class="notifications-container">
+  <div class="notifications-header">
+    <h2 class="page-title">🔔 Your Notifications</h2>
+    <p class="page-subtitle">Stay updated on your book requests</p>
+  </div>
+
+  <div class="notifications-list-container">
+    <div *ngIf="notifications.length === 0" class="empty-state">
+      <div class="empty-icon">📭</div>
+      <h3>No notifications yet</h3>
+      <p>You'll see notifications here when books become available</p>
+    </div>
+
+    <div class="notification-card" *ngFor="let n of notifications" [class.read]="n.isRead">
+      <div class="notification-content">
+        <div class="notification-icon">📚</div>
+        <div class="notification-details">
+          <div class="notification-title" [class.unread]="!n.isRead">
+            <strong>{{ n.book?.title }}</strong> is now available!
+          </div>
+          <div class="notification-time">{{ n.createdAt | date:'medium' }}</div>
+        </div>
+      </div>
+      <button *ngIf="!n.isRead" class="mark-read-btn" (click)="markAsRead(n.id)">
+        Mark as Read
+      </button>
+    </div>
+  </div>
 </div>
-
-<ul *ngIf="notifications.length > 0">
-  <li *ngFor="let n of notifications">
-    <div [style.font-weight]="n.isRead ? 'normal' : 'bold'">
-      📚 {{ n.message }} <br>
-      <small>{{ n.createdOn | date:'short' }}</small>
-    </div>
-    <button *ngIf="!n.isRead" (click)="markAsRead(n.id)">Mark as Read</button>
-    <hr />
-  </li>
-</ul> -->
-<ul *ngIf="notifications.length > 0">
-  <li *ngFor="let n of notifications" [class.read]="n.isRead">
-
-    <div [style.font-weight]="n.isRead ? 'normal' : 'bold'">
-      📚 <strong>{{ n.book?.title }}</strong> is now available! <br>
-      <small>{{ n.createdAt | date:'short' }}</small>
-    </div>
-    <button *ngIf="!n.isRead" (click)="markAsRead(n.id)">Mark as Read</button>
-    <hr />
-  </li>
-</ul>

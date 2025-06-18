@@ -1,55 +1,5 @@
-<!-- <p>dashboard works!</p>
-<h2>Admin Dashboard</h2>
-
-<table border="1" cellpadding="8">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Full Name</th>
-      <th>Email</th>
-      <th>Role</th>
-      <th>Blocked</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let user of users">
-      <td>{{ user.id }}</td>
-      <td>{{ user.fullName }}</td>
-      <td>{{ user.email }}</td>
-      <td>{{ user.userType }}</td>
-      <td>{{ user.isBlocked ? 'Yes' : 'No' }}</td>
-      <td>
-        <button (click)="toggleBlock(user)">
-          {{ user.isBlocked ? 'Unblock' : 'Block' }}
-        </button>
-        <button (click)="toggleLibrarian(user)">
-          {{ user.userType === 'Librarian' ? 'Revoke Librarian' : 'Assign Librarian' }}
-        </button>
-      </td>
-    </tr>
-  </tbody>
-</table>
-<button (click)="logout()">Logout</button>
-<h3>Add New Admin or Librarian</h3>
-<form (ngSubmit)="registerUser()">
-  <input [(ngModel)]="newUser.fullName" name="fullName" placeholder="Full Name" required />
-  <input [(ngModel)]="newUser.email" name="email" placeholder="Email" type="email" required />
-  <input [(ngModel)]="newUser.password" name="password" type="password" placeholder="Password" required />
-  <select [(ngModel)]="newUser.userType" name="userType">
-    <option value="Librarian">Librarian</option>
-    <option value="Admin">Admin</option>
-  </select>
-  <button type="submit">Register</button>
-</form>
-
-<p *ngIf="registerMsg">{{ registerMsg }}</p>
-
-<button routerLink="/books">📚 Manage Books</button>
-  -->
-
 <div class="dashboard-container">
-  <!-- SIDEBAR -->
+
   <aside class="sidebar glass-effect">
     <h2>📚 LMS Admin</h2>
     <button (click)="showForm = !showForm" class="sidebar-btn">
@@ -63,7 +13,7 @@
     </button>
   </aside>
 
-  <!-- MAIN CONTENT -->
+
   <main class="main-content">
     <div class="dashboard-card glass-effect animate__animated animate__fadeInDown">
       <h3>👥 Registered Users</h3>
@@ -100,8 +50,7 @@
         </table>
       </div>
 
-      <!-- FORM -->
-      <!-- MODAL FORM OVERLAY -->
+   
 <div *ngIf="showForm" class="modal-overlay" (click)="closeForm()">
   <div class="modal-form animate__animated animate__zoomIn" (click)="$event.stopPropagation()">
     <h3 class="section-title">➕ Add Admin or Librarian</h3>
@@ -128,3 +77,4 @@
     <button class="close-btn" (click)="closeForm()">❌ Close</button>
   </div>
 </div>
+

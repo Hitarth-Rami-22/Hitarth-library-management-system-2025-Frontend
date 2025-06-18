@@ -1,46 +1,21 @@
-<p>sidebar-layout works!</p>
-<!-- <div class="layout">
-  <aside class="sidebar">
-    <ul>
-       <ul>
-    <li><a routerLink="/student-dashboard">🏠 Dashboard</a></li>
-  </ul>
-      <li *ngFor="let item of menuItems">
-        <button routerLink="{{ item.route }}">{{ item.label }}</button>
-      </li>
-       <li><a routerLink="/student-dashboard/return-requests">📄 Return Book</a></li>
 
 
-    </ul>
-    <button (click)="logout()" class="sidebar-btn logout">
-      🚪 Logout
-    </button>
-  </aside>
-
-  <main class="content">
-    <router-outlet></router-outlet>
-  </main>
-</div> -->
-
-
-<!-- librarian-sidebar-layout.component.html -->
 <div class="layout">
   <aside class="sidebar">
     <ul>
       <li><a routerLink="/librarian-dashboard">🏠 Dashboard</a></li>
       <li><a routerLink="/librarian-dashboard/requests">📥 Borrow Requests</a></li>
       <li><a routerLink="/librarian-dashboard/return-approvals">📥 Return Approvals</a></li>
-      <!-- <li><a routerLink="/penalties">📬 View Penalties</a></li> -->
+      
       <li><a routerLink="penalties">📬 View Penalties</a></li>
-
-
-
+      
       <!-- Add more features like Return Approvals in future -->
     </ul>
 
     <button (click)="logout()" class="sidebar-btn logout">
       🚪 Logout
     </button>
+    
   </aside>
 
   <main class="content">

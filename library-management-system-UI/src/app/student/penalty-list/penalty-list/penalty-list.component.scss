@@ -1,17 +1,121 @@
-.penalty-container {
-  margin: 20px;
-  padding: 15px;
-  background: #f4f4f4;
-  border-radius: 8px;
+.penalty-page {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
-table {
+
+.penalty-header {
+  margin-bottom: 2rem;
+  text-align: center;
+
+  .page-title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+  }
+
+  .page-subtitle {
+    font-size: 1rem;
+    color: #7f8c8d;
+    margin: 0;
+  }
+}
+
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  
+  .spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+}
+
+.penalty-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.table-responsive {
+  overflow-x: auto;
+  padding: 1rem;
+}
+
+.penalty-table {
   width: 100%;
   border-collapse: collapse;
+  font-size: 0.95rem;
+
+  th, td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #ecf0f1;
+  }
+
+  th {
+    background-color: #f8f9fa;
+    color: #34495e;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+  }
+
+  tr:hover {
+    background-color: #f8f9fa;
+  }
+
+  .penalty-amount {
+    color: #e74c3c;
+    font-weight: 600;
+  }
 }
-th, td {
-  padding: 8px 12px;
-  border: 1px solid #ccc;
+
+.total-penalty {
+  padding: 1.25rem;
+  background-color: #fff8f8;
+  border-top: 1px solid #ffebee;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #e74c3c;
+  text-align: right;
 }
-th {
-  background-color: #e3e3e3;
+
+.no-penalties {
+  text-align: center;
+  padding: 3rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+
+  .celebrate-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  h3 {
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    color: #7f8c8d;
+    margin: 0;
+  }
 }

@@ -9,7 +9,7 @@ export class StudentDashboardComponent {
   studentMenu = [
   { label: '📚 Borrow Book', route: 'borrow' },
   { label: '🕓 View History', route: 'history' },
-  { label: '🧡 Wishlist', route: 'wishlist' }
+  //{ label: '🧡 Wishlist', route: 'wishlist' }
   // Add more in future
 ];
 

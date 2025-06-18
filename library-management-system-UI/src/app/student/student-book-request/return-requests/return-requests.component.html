@@ -13,8 +13,7 @@
     <tr *ngFor="let b of approvedBooks">
       <td>{{ b.book?.title }}</td>
       <td>{{ b.approvedOn | date:'short' }}</td>
-      <!-- <td><button (click)="returnBook(b.id)">Return Book</button></td>
-      <td><button (click)="submitReturnRequest(b.id)">Return Book</button></td> -->
+    
       <td><button (click)="submitReturnRequest(b.id)">📤 Request Return</button></td>
 
 

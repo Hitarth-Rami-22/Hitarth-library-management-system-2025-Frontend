@@ -43,12 +43,7 @@ export class DashboardComponent implements OnInit {
 }
 
   ngOnInit(): void {
-//     const role = this.tokenService.getUserRole();
 
-//   if (role === 'Admin') {
-//     this.loadUsers();
-//   }
-// }
     this.loadUsers();
   }
 
@@ -87,6 +82,9 @@ export class DashboardComponent implements OnInit {
 }
 closeForm() {
   this.showForm = false;
+}
+countByRole(role: string): number {
+  return this.users.filter(u => u.userType === role).length;
 }
 
 

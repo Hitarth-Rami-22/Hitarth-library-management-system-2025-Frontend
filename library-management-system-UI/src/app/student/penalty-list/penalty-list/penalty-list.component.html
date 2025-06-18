@@ -1,28 +1,50 @@
-<p>penalty-list works!</p>
-<div class="penalty-container" *ngIf="penalties.length > 0; else noPenalties">
-  <h3>📬 Penalty Details</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>Book Title</th>
-        <th>Author</th>
-        <th>Issued On</th>
-        <th>Penalty (₹)</th>
-        <th *ngIf="penalties[0].student">Student Email</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let p of penalties">
-        <td>{{ p.book.title }}</td>
-        <td>{{ p.book.author }}</td>
-        <td>{{ p.approvedOn | date: 'mediumDate' }}</td>
-        <td>{{ p.penaltyAmount }}</td>
-        <td *ngIf="p.student">{{ p.student.email }}</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
 
-<ng-template #noPenalties>
-  <p>No penalties found 🎉</p>
-</ng-template>
+<div class="penalty-page">
+  <div class="penalty-header">
+    <h2 class="page-title">📝 Penalty Records</h2>
+    <p class="page-subtitle">View your outstanding book penalties</p>
+  </div>
+
+  <div *ngIf="isLoading" class="loading-spinner">
+    <div class="spinner"></div>
+    <p>Loading penalty details...</p>
+  </div>
+
+  <div *ngIf="!isLoading">
+    <div class="penalty-card" *ngIf="penalties.length > 0; else noPenalties">
+      <div class="table-responsive">
+        <table class="penalty-table">
+          <thead>
+            <tr>
+              <th>Book Title</th>
+              <th>Author</th>
+              <th>Issued On</th>
+              <th>Penalty</th>
+              <th *ngIf="penalties[0].student">Student Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let p of penalties">
+              <td>{{ p.book.title }}</td>
+              <td>{{ p.book.author }}</td>
+              <td>{{ p.approvedOn | date: 'mediumDate' }}</td>
+              <td class="penalty-amount">₹{{ p.penaltyAmount }}</td>
+              <td *ngIf="p.student">{{ p.student.email }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="total-penalty" *ngIf="penalties.length > 0">
+        Total Due: ₹{{ getTotalPenalty() }}
+      </div>
+    </div>
+
+    <ng-template #noPenalties>
+      <div class="no-penalties">
+        <div class="celebrate-icon">🎉</div>
+        <h3>No penalties found!</h3>
+        <p>You're all caught up with your book returns</p>
+      </div>
+    </ng-template>
+  </div>
+</div>

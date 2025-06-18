@@ -1,39 +1,4 @@
-<!-- <p>borrow works!</p>
-<h2>Available Books</h2>
-<table border="1" cellpadding="8">
-  <tr *ngFor="let book of books">
-    <td>{{ book.title }}</td>
-    <td>{{ book.author }}</td>
-    <td>{{ book.quantity }}</td>
-    <td>
-      <button 
-      (click)="borrow(book.id)">Borrow</button>
-    </td>
-  </tr>
-</table> -->
-
-
-
-
-
-
-
-
-<!-- <section class="borrow-section">
-  <h2 class="title">📚 Available Books</h2>
-  <div class="card-table">
-    <div class="card" *ngFor="let book of books">
-      <div class="book-info">
-        <h3>{{ book.title }}</h3>
-        <p class="author">by {{ book.author }}</p>
-        <p class="quantity">Quantity: {{ book.quantity }}</p>
-      </div>
-      <button class="btn-borrow" (click)="borrow(book.id)">Borrow</button>
-    </div>
-  </div>
-</section> -->
-
-
+<!-- 
 
 <section class="borrow-section">
   <h2 class="title">📚 Available Books</h2>
@@ -53,6 +18,34 @@
         <button class="btn-wishlist" (click)="addToWishlist(book.id)">➕ Add to Wishlist</button>
       </ng-template>
 
+    </div>
+  </div>
+</section> -->
+<section class="borrow-section">
+  <h2 class="title">📚 Available Books</h2>
+
+  <!-- 🔍 SEARCH BAR -->
+  <div class="search-bar input-group mb-4">
+    <input type="text" class="form-control" placeholder="Search books by title or author..." [(ngModel)]="searchText">
+    <span class="input-group-text"><i class="bi bi-search"></i></span>
+  </div>
+
+  <!-- 📚 BOOK LIST -->
+  <div class="card-table">
+    <div class="card" *ngFor="let book of filteredBooks()">
+      <div class="book-info">
+        <h3>{{ book.title }}</h3>
+        <p class="author">by {{ book.author }}</p>
+        <p class="quantity">Quantity: {{ book.quantity }}</p>
+      </div>
+
+      <ng-container *ngIf="book.quantity > 0; else showWishlist">
+        <button class="btn-borrow" (click)="borrow(book.id)">Borrow</button>
+      </ng-container>
+
+      <ng-template #showWishlist>
+        <button class="btn-wishlist" (click)="addToWishlist(book.id)">➕ Add to Wishlist</button>
+      </ng-template>
     </div>
   </div>
 </section>

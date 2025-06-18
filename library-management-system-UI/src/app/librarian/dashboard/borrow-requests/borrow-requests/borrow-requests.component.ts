@@ -1,12 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BorrowServiceService } from 'src/app/student/borrow-service/borrow-service.service';
 
-// export enum BorrowStatus {
-//   Pending = 0,
-//   Approved = 1,
-//   Rejected = 2,
-//   Returned = 3
-// }
+
 
 @Component({
   selector: 'app-borrow-requests',
@@ -15,6 +10,7 @@ import { BorrowServiceService } from 'src/app/student/borrow-service/borrow-serv
 })
 export class BorrowRequestsComponent implements OnInit {
   requests: any[] = [];
+  searchTerm: string = '';
   //borrowStatus = BorrowStatus;
   constructor(private borrowServiceService: BorrowServiceService) {}
 
@@ -29,12 +25,7 @@ export class BorrowRequestsComponent implements OnInit {
     });
   }
 
-  // updateStatus(id: number, newStatus: string) {
-  //   this.borrowServiceService.updateStatus({ requestId: id, newStatus }).subscribe({
-  //     next: () => this.loadRequests(),
-  //     error: (err) => alert(err.error)
-  //   });
-  // }
+
 updateStatus(id: number, newStatus: number) {
   this.borrowServiceService.updateStatus({ requestId: id, newStatus }).subscribe({
     next: () => this.loadRequests(),

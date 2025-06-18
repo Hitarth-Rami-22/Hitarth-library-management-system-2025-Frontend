@@ -21,12 +21,9 @@ import { PenaltyListComponent } from './student/penalty-list/penalty-list/penalt
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  //{path: 'dashboard', component: DashboardComponent, canActivate: [authGuard]},
+
   
   { path: 'dashboard', component: DashboardComponent, canActivate: [adminGuard] },
-
-  //{path: 'librarian-dashboard', component: LibrarianDashboardComponent, canActivate: [authGuard]},
-  //{path: 'student-dashboard', component: StudentDashboardComponent, canActivate: [authGuard]},
 
   { path: 'student-dashboard', component: StudentDashboardComponent, canActivate: [authGuard],
     children: [
@@ -36,12 +33,9 @@ const routes: Routes = [
     { path: 'return-requests', component: ReturnRequestsComponent },
     { path: 'notifications', component: NotificationsComponent },
     { path: 'penalties', component: PenaltyListComponent },
-
-
-
   ]
    },
-// { path: 'student/borrow', component: BorrowComponent, canActivate: [authGuard] },
+
 { path: 'student/history', component: HistoryComponent, canActivate: [authGuard] },
 
 { path: 'librarian-dashboard', component: LibrarianDashboardComponent, canActivate: [authGuard],
@@ -52,7 +46,6 @@ const routes: Routes = [
     { path: 'penalties', component: PenaltyListComponent },
   ]
  },
-//{ path: 'librarian/requests', component: BorrowRequestsComponent, canActivate: [authGuard] },
 
   { path: 'books', component: BookComponent, canActivate: [authGuard] }, 
   { path: '', redirectTo: 'login', pathMatch: 'full' },
