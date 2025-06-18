@@ -1,4 +1,4 @@
-
+<!-- 
 <div class="layout">
   <aside class="sidebar">
     <ul>
@@ -13,6 +13,27 @@
 
     </ul>
     <button (click)="logout()">🚪 Logout</button>
+  </aside>
+
+  <main class="content">
+    <router-outlet></router-outlet>
+  </main>
+</div> -->
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h3>📚 Student Portal</h3>
+    </div>
+    <ul class="nav-menu">
+      <li><a routerLink="/student-dashboard" routerLinkActive="active">🏠 Dashboard</a></li>
+      <li *ngFor="let item of menuItems">
+        <a routerLink="{{ item.route }}" routerLinkActive="active">{{ item.label }}</a>
+      </li>
+      <li><a routerLink="/student-dashboard/return-requests" routerLinkActive="active">📄 Return Book</a></li>
+      <li><a routerLink="/student-dashboard/notifications" routerLinkActive="active">🔔 Notifications</a></li>
+      <li><a routerLink="penalties" routerLinkActive="active">📬 View Penalties</a></li>
+    </ul>
+    <button class="logout-btn" (click)="logout()">🚪 Logout</button>
   </aside>
 
   <main class="content">

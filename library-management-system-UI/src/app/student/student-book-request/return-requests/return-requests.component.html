@@ -1,4 +1,4 @@
-<p>return-requests works!</p>
+<!-- <p>return-requests works!</p>
 <h2>📥 Return Book</h2>
 
 <table border="1" cellpadding="8" *ngIf="approvedBooks.length > 0; else noBooks">
@@ -23,4 +23,48 @@
 
 <ng-template #noBooks>
   <p>No approved books available for return.</p>
-</ng-template>
+</ng-template> -->
+<div class="return-container">
+  <div class="return-header">
+    <h2>📥 Return Books</h2>
+    <p>Submit return requests for your borrowed books</p>
+  </div>
+
+  <div *ngIf="isLoading" class="loading-spinner">
+    <div class="spinner"></div>
+    <p>Loading your books...</p>
+  </div>
+
+  <div *ngIf="!isLoading">
+    <div class="books-table" *ngIf="approvedBooks.length > 0; else noBooks">
+      <table>
+        <thead>
+          <tr>
+            <th>Book Title</th>
+            <th>Approved On</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let b of approvedBooks">
+            <td>{{ b.book?.title }}</td>
+            <td>{{ b.approvedOn | date:'mediumDate' }}</td>
+            <td>
+              <button class="return-btn" (click)="submitReturnRequest(b.id)">
+                📤 Request Return
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <ng-template #noBooks>
+      <div class="no-books">
+        <div class="icon">📚</div>
+        <h3>No books available for return</h3>
+        <p>You don't have any approved books to return at this time</p>
+      </div>
+    </ng-template>
+  </div>
+</div>
