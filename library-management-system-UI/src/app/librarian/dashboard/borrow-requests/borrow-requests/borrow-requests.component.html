@@ -1,4 +1,4 @@
-
+<!-- 
 
 <h2>Borrow Requests</h2>
 
@@ -14,4 +14,65 @@
       <button (click)="updateStatus(r.id, 3)" [disabled]="r.status !== 1">Mark Returned</button>
     </td>
   </tr>
-</table>
+</table> -->
+<div class="borrow-requests-container">
+  <div class="header">
+    <h2>📚 Borrow Requests Management</h2>
+    <div class="search-container">
+      <input type="text" [(ngModel)]="searchTerm" placeholder="Search requests..." (input)="applyFilter()">
+      <button class="refresh-btn" (click)="loadRequests()">
+        <span class="refresh-icon">🔄</span> Refresh
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="isLoading" class="loading-state">
+    <div class="spinner"></div>
+    <p>Loading requests...</p>
+  </div>
+
+  <div *ngIf="!isLoading">
+    <div *ngIf="filteredRequests.length > 0; else noRequests" class="requests-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Book Title</th>
+            <th>Student Name</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let r of filteredRequests">
+            <td>{{ r.book.title }}</td>
+            <td>{{ r.student.fullName }}</td>
+            <td>
+              <span class="status-badge" [ngClass]="getStatusClass(r.status)">
+                {{ getStatusText(r.status) }}
+              </span>
+            </td>
+            <td class="action-buttons">
+              <button class="approve-btn" (click)="updateStatus(r.id, 1)" [disabled]="r.status !== 0">
+                Approve
+              </button>
+              <button class="reject-btn" (click)="updateStatus(r.id, 2)" [disabled]="r.status !== 0">
+                Reject
+              </button>
+              <button class="return-btn" (click)="updateStatus(r.id, 3)" [disabled]="r.status !== 1">
+                Mark Returned
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <ng-template #noRequests>
+      <div class="empty-state">
+        <div class="empty-icon">📭</div>
+        <h3>No Borrow Requests Found</h3>
+        <p>When students request books, they will appear here</p>
+      </div>
+    </ng-template>
+  </div>
+</div>
