@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AdminService } from 'src/app/admin/service/admin.service';
 import { Router } from '@angular/router';
 import { TokenStorageService } from 'src/app/shared/token-storage/token-storage.service';
-import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,40 +9,25 @@ import { AuthService } from 'src/app/auth/auth.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-
   users: any[] = [];
+  filteredUsers: any[] = [];
   registerMsg = '';
-  showForm: boolean = false; // 🔹 Controls Add User form visibility
-
-
-    newUser = {
+  showForm = false;
+  
+  newUser = {
     fullName: '',
     email: '',
     password: '',
     userType: 'Librarian'
-};
+  };
 
-  constructor(private adminService: AdminService, private tokenService: TokenStorageService, private router: Router) {}
-
-  registerUser() {
-  this.adminService.registerUser(this.newUser).subscribe({
-    next: (res: any) => {
-      this.registerMsg = res.message || 'User registered';
-      this.newUser = { fullName: '', email: '', password: '', userType: 'Librarian' };
-      this.loadUsers(); // Refresh user list
-      this.showForm = false; // 🔹 Auto close form on success
-
-      
-    },
-    error: (err) => {
-      alert('Failed to register user');
-      console.error(err);
-    }
-  });
-}
+  constructor(
+    private adminService: AdminService,
+    private tokenService: TokenStorageService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-
     this.loadUsers();
   }
 
@@ -51,9 +35,18 @@ export class DashboardComponent implements OnInit {
     this.adminService.getAllUsers().subscribe({
       next: (res: any) => {
         this.users = res;
+        this.filteredUsers = [...this.users];
       },
       error: () => alert('Failed to load users.')
     });
+  }
+
+  filterUsers(event: Event) {
+    const searchTerm = (event.target as HTMLInputElement).value.toLowerCase();
+    this.filteredUsers = this.users.filter(user => 
+      user.fullName.toLowerCase().includes(searchTerm) || 
+      user.email.toLowerCase().includes(searchTerm)
+    );
   }
 
   toggleBlock(user: any) {
@@ -76,21 +69,37 @@ export class DashboardComponent implements OnInit {
       error: () => alert('Failed to update role.')
     });
   }
-  validateEmail(email: string): boolean {
-  const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return pattern.test(email);
-}
-closeForm() {
-  this.showForm = false;
-}
-countByRole(role: string): number {
-  return this.users.filter(u => u.userType === role).length;
-}
 
+  registerUser() {
+    this.adminService.registerUser(this.newUser).subscribe({
+      next: (res: any) => {
+        this.registerMsg = res.message || 'User registered successfully!';
+        this.newUser = { fullName: '', email: '', password: '', userType: 'Librarian' };
+        this.loadUsers();
+        setTimeout(() => this.closeForm(), 1500);
+      },
+      error: (err) => {
+        this.registerMsg = err.error?.message || 'Failed to register user';
+      }
+    });
+  }
+
+  validateEmail(email: string): boolean {
+    const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return pattern.test(email);
+  }
+
+  closeForm() {
+    this.showForm = false;
+    this.registerMsg = '';
+  }
+
+  countByRole(role: string | number): number {
+    return this.users.filter(u => u.userType === role).length;
+  }
 
   logout() {
-  this.tokenService.clear();
-  this.router.navigate(['/login']);
-}
-
+    this.tokenService.clear();
+    this.router.navigate(['/login']);
+  }
 }

@@ -33,7 +33,7 @@ ngOnInit(): void {
 
   if (token) {
     const payload = JSON.parse(atob(token.split('.')[1]));
-    console.log('Token Payload:', payload);  // 👈 debug log
+    console.log('Token Payload:', payload);  //  debug log
 
     
     const rawId = payload["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"];

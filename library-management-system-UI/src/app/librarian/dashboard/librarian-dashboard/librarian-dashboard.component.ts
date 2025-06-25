@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class LibrarianDashboardComponent {
 librarianMenu = [
-  { label: '📋 Borrow Requests', route: 'requests' }, // child route (✅ stays as is)
+  
   { label: '📖 Manage Books', route: '/books' }        // external route
 ];
 
