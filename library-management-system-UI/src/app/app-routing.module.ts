@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { DashboardComponent } from './admin/dashboard/dashboard/dashboard.component';
+import { DashboardComponent as LibrarianDashboardHomeComponent } from './librarian/dashboard/dashboard/dashboard/dashboard.component';
 import { authGuard } from './auth/auth.guard';
 import { BookComponent } from './book/book/book/book.component';
 import { LibrarianDashboardComponent } from './librarian/dashboard/librarian-dashboard/librarian-dashboard.component';
@@ -40,14 +41,15 @@ const routes: Routes = [
 
 { path: 'librarian-dashboard', component: LibrarianDashboardComponent, canActivate: [authGuard],
   children: [
-    { path: '', redirectTo: 'requests', pathMatch: 'full' },
+    { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+    { path: 'dashboard', component: LibrarianDashboardHomeComponent },
     { path: 'requests', component: BorrowRequestsComponent },
     { path: 'return-approvals',component: ReturnApprovalsComponent},
     { path: 'penalties', component: PenaltyListComponent },
+    { path: 'books', component: BookComponent },
   ]
  },
 
-  { path: 'books', component: BookComponent, canActivate: [authGuard] }, 
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'login' }
 

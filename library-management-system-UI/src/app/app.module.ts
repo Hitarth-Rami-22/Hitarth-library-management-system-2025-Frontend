@@ -9,6 +9,8 @@ import { RegisterComponent } from './auth/register/register.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from './admin/dashboard/dashboard/dashboard.component';
+import { DashboardComponent as LibrarianDashboardHomeComponent } from './librarian/dashboard/dashboard/dashboard/dashboard.component';
+import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 //import { AuthInterceptor } from 'src/app/shared/intercepter/auth.interceptor';
 import { AuthInterceptor } from 'src/app/shared/intercepter/auth.interceptor';
@@ -49,11 +51,12 @@ import { PenaltyListComponent } from './student/penalty-list/penalty-list/penalt
     ReturnApprovalsComponent,
     WishlistComponent,
     NotificationsComponent,
-    PenaltyListComponent
-
+    PenaltyListComponent,
+    LibrarianDashboardHomeComponent
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     AppRoutingModule,
     FormsModule,
     BrowserAnimationsModule,

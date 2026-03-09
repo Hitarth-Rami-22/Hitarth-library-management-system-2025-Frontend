@@ -1,47 +1,3 @@
-// import { Component, OnInit } from '@angular/core';
-// import { BorrowServiceService } from 'src/app/student/borrow-service/borrow-service.service';
-
-
-
-// @Component({
-//   selector: 'app-borrow-requests',
-//   templateUrl: './borrow-requests.component.html',
-//   styleUrls: ['./borrow-requests.component.scss']
-// })
-// export class BorrowRequestsComponent implements OnInit {
-//   requests: any[] = [];
-//   searchTerm: string = '';
-//   //borrowStatus = BorrowStatus;
-//   constructor(private borrowServiceService: BorrowServiceService) {}
-
-//   ngOnInit(): void {
-//     this.loadRequests();
-//   }
-
-//   loadRequests() {
-//     this.borrowServiceService.getAllRequests().subscribe({
-//       next: (res: any) => this.requests = res,
-//       error: () => alert('Error loading requests')
-//     });
-//   }
-
-
-// updateStatus(id: number, newStatus: number) {
-//   this.borrowServiceService.updateStatus({ requestId: id, newStatus }).subscribe({
-//     next: () => this.loadRequests(),
-//     error: (err) => alert(err.error?.message || 'Failed to update')
-//   });
-// }
-// getStatusText(status: number): string {
-//   switch (status) {
-//     case 0: return 'Pending';
-//     case 1: return 'Approved';
-//     case 2: return 'Rejected';
-//     case 3: return 'Returned';
-//     default: return 'Unknown';
-//   }
-// }
-// }
 import { Component, OnInit } from '@angular/core';
 import { BorrowServiceService } from 'src/app/student/borrow-service/borrow-service.service';
 
@@ -55,6 +11,7 @@ export class BorrowRequestsComponent implements OnInit {
   filteredRequests: any[] = [];
   searchTerm: string = '';
   isLoading: boolean = true;
+  activeFilter: number | null = null;
 
   constructor(private borrowServiceService: BorrowServiceService) {}
 
@@ -67,7 +24,7 @@ export class BorrowRequestsComponent implements OnInit {
     this.borrowServiceService.getAllRequests().subscribe({
       next: (res: any) => {
         this.requests = res;
-        this.filteredRequests = res;
+        this.applyFilter();
         this.isLoading = false;
       },
       error: () => {
@@ -75,6 +32,31 @@ export class BorrowRequestsComponent implements OnInit {
         this.isLoading = false;
       }
     });
+  }
+
+  setFilter(status: number | null): void {
+    this.activeFilter = status;
+    this.applyFilter();
+  }
+
+  applyFilter() {
+    let filtered = [...this.requests];
+
+    // Apply status tab filter
+    if (this.activeFilter !== null) {
+      filtered = filtered.filter(r => r.status === this.activeFilter);
+    }
+
+    // Apply search filter
+    if (this.searchTerm.trim()) {
+      const term = this.searchTerm.toLowerCase();
+      filtered = filtered.filter(r =>
+        r.book.title.toLowerCase().includes(term) ||
+        r.student.fullName.toLowerCase().includes(term)
+      );
+    }
+
+    this.filteredRequests = filtered;
   }
 
   updateStatus(id: number, newStatus: number) {
@@ -104,16 +86,7 @@ export class BorrowRequestsComponent implements OnInit {
     }
   }
 
-  applyFilter() {
-    if (!this.searchTerm) {
-      this.filteredRequests = this.requests;
-      return;
-    }
-    
-    const term = this.searchTerm.toLowerCase();
-    this.filteredRequests = this.requests.filter(r => 
-      r.book.title.toLowerCase().includes(term) || 
-      r.student.fullName.toLowerCase().includes(term)
-    );
+  getCountByStatus(status: number): number {
+    return this.requests.filter(r => r.status === status).length;
   }
 }
