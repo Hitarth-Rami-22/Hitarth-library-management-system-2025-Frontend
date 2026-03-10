@@ -1,117 +1,294 @@
-/* =========================================
-   SIDEBAR LAYOUT – PRO UI REDESIGN
-   ========================================= */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
-// Design tokens
-$sidebar-width: 250px;
-$bg-sidebar: #0f172a; // deep navy
-$bg-hover: rgba(255, 255, 255, .07);
-$bg-active: rgba(99, 102, 241, .18);
-$accent: #6366f1; // indigo
+// ── Design tokens ────────────────────────────────────
+$font: 'Inter', sans-serif;
+$sidebar-w: 252px;
+$sb-bg: #0f172a;
+$sb-hover: rgba(255, 255, 255, .07);
+$sb-active: rgba(99, 102, 241, .18);
+$accent: #6366f1;
 $accent-lt: #818cf8;
-$text-primary: #f1f5f9;
+$text-hi: #f1f5f9;
 $text-muted: #94a3b8;
-$border-color: rgba(255, 255, 255, .08);
-$radius: 10px;
-$transition: all .2s ease;
+$border-sb: rgba(255, 255, 255, .08);
+$red: #ef4444;
+$r: 10px;
+$ease: all .2s ease;
 
-// ── Layout ──────────────────────────────
-.layout {
+// ── Root layout ──────────────────────────────────────
+.lib-wrap {
   display: flex;
-  height: 100vh;
-  font-family: 'Inter', sans-serif;
-  overflow: hidden;
+  min-height: 100vh;
+  font-family: $font;
+  background: #f8fafc;
 }
 
-// ── Sidebar ─────────────────────────────
+// ── Mobile top bar (hidden on desktop) ───────────────
+.mobile-bar {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 58px;
+  background: $sb-bg;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.2rem;
+  z-index: 300;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, .3);
+
+  .mobile-brand {
+    display: flex;
+    align-items: center;
+    gap: .7rem;
+
+    .brand-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, $accent, $accent-lt);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      svg {
+        width: 16px;
+        height: 16px;
+        stroke: #fff;
+      }
+    }
+
+    .brand-name {
+      font-size: .92rem;
+      font-weight: 700;
+      color: $text-hi;
+    }
+  }
+}
+
+// ── Hamburger button ──────────────────────────────────
+.burger {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 8px;
+  transition: $ease;
+
+  span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: $text-muted;
+    border-radius: 2px;
+    transition: $ease;
+    transform-origin: center;
+  }
+
+  &:hover {
+    background: rgba(255, 255, 255, .08);
+
+    span {
+      background: $text-hi;
+    }
+  }
+
+  &.open {
+    span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    span:nth-child(2) {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+
+    span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+  }
+}
+
+// ── Mobile overlay ────────────────────────────────────
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, .5);
+  z-index: 299;
+  backdrop-filter: blur(2px);
+  animation: fadeIn .2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0
+  }
+
+  to {
+    opacity: 1
+  }
+}
+
+// ── Sidebar ───────────────────────────────────────────
 .sidebar {
-  width: $sidebar-width;
-  min-width: $sidebar-width;
-  background: $bg-sidebar;
+  width: $sidebar-w;
+  min-width: $sidebar-w;
+  background: $sb-bg;
   display: flex;
   flex-direction: column;
   height: 100vh;
   position: sticky;
   top: 0;
-  overflow: hidden;
-  box-shadow: 4px 0 24px rgba(0, 0, 0, .25);
-}
-
-// ── Brand ───────────────────────────────
-.sidebar-brand {
-  display: flex;
-  align-items: center;
-  gap: .8rem;
-  padding: 1.4rem 1.2rem 1rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-shadow: 4px 0 24px rgba(0, 0, 0, .2);
   flex-shrink: 0;
-}
+  z-index: 300;
 
-.brand-icon {
-  width: 40px;
-  height: 40px;
-  background: linear-gradient(135deg, $accent, $accent-lt);
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  box-shadow: 0 4px 14px rgba($accent, .45);
+  // Custom scrollbar
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
 
-  svg {
-    width: 20px;
-    height: 20px;
-    stroke: #fff;
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, .12);
+    border-radius: 2px;
   }
 }
 
-.brand-text {
+// ── Brand block ───────────────────────────────────────
+.sidebar-brand {
   display: flex;
-  flex-direction: column;
-  line-height: 1;
+  align-items: center;
+  gap: .85rem;
+  padding: 1.4rem 1.2rem 1rem;
+  flex-shrink: 0;
+
+  .brand-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, $accent, $accent-lt);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 4px 14px rgba($accent, .4);
+
+    svg {
+      width: 20px;
+      height: 20px;
+      stroke: #fff;
+    }
+  }
+
+  .brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+  }
+
+  .brand-name {
+    font-size: .95rem;
+    font-weight: 700;
+    color: $text-hi;
+    letter-spacing: -.2px;
+  }
+
+  .brand-role {
+    font-size: .68rem;
+    font-weight: 500;
+    color: $text-muted;
+    margin-top: .2rem;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+  }
 }
 
-.brand-name {
-  font-size: .95rem;
-  font-weight: 700;
-  color: $text-primary;
-  letter-spacing: -.2px;
+// ── User chip ─────────────────────────────────────────
+.user-chip {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  padding: .75rem 1.2rem;
+  margin: 0 .6rem .4rem;
+  background: rgba(255, 255, 255, .04);
+  border: 1px solid $border-sb;
+  border-radius: $r;
+
+  .uc-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, $accent, $accent-lt);
+    color: #fff;
+    font-size: .88rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .uc-info {
+    display: flex;
+    flex-direction: column;
+    gap: .05rem;
+    min-width: 0;
+  }
+
+  .uc-name {
+    font-size: .84rem;
+    font-weight: 600;
+    color: $text-hi;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .uc-role {
+    font-size: .68rem;
+    font-weight: 500;
+    color: $text-muted;
+    text-transform: uppercase;
+    letter-spacing: .4px;
+  }
 }
 
-.brand-role {
-  font-size: .7rem;
-  font-weight: 500;
-  color: $text-muted;
-  margin-top: .2rem;
-  text-transform: uppercase;
-  letter-spacing: .5px;
-}
-
-// ── Divider ─────────────────────────────
+// ── Divider ───────────────────────────────────────────
 .sidebar-divider {
   height: 1px;
-  background: $border-color;
+  background: $border-sb;
   margin: .4rem 1.2rem;
   flex-shrink: 0;
 }
 
-// ── Nav ─────────────────────────────────
+// ── Navigation ────────────────────────────────────────
 .sidebar-nav {
   flex: 1;
-  overflow-y: visible;
-  padding: .6rem 0;
+  padding: .4rem 0;
 }
-
 
 .nav-section-label {
   display: block;
-  font-size: .65rem;
+  font-size: .62rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 1.1px;
   color: $text-muted;
-  padding: .8rem 1.3rem .3rem;
+  padding: .75rem 1.3rem .3rem;
 }
 
 .sidebar-nav ul {
@@ -120,7 +297,7 @@ $transition: all .2s ease;
   padding: 0 .6rem;
 
   li {
-    margin-bottom: .12rem;
+    margin-bottom: .1rem;
   }
 
   a {
@@ -128,12 +305,12 @@ $transition: all .2s ease;
     align-items: center;
     gap: .75rem;
     padding: .65rem .85rem;
-    border-radius: $radius;
+    border-radius: $r;
     text-decoration: none;
     color: $text-muted;
-    font-size: .85rem;
+    font-size: .86rem;
     font-weight: 500;
-    transition: $transition;
+    transition: $ease;
     position: relative;
 
     .nav-icon {
@@ -143,15 +320,15 @@ $transition: all .2s ease;
       align-items: center;
       justify-content: center;
       border-radius: 7px;
-      flex-shrink: 0;
       background: rgba(255, 255, 255, .05);
-      transition: $transition;
+      flex-shrink: 0;
+      transition: $ease;
 
       svg {
         width: 15px;
         height: 15px;
         stroke: $text-muted;
-        transition: $transition;
+        transition: $ease;
       }
     }
 
@@ -160,8 +337,8 @@ $transition: all .2s ease;
     }
 
     &:hover {
-      background: $bg-hover;
-      color: $text-primary;
+      background: $sb-hover;
+      color: $text-hi;
 
       .nav-icon {
         background: rgba($accent, .2);
@@ -173,8 +350,8 @@ $transition: all .2s ease;
     }
 
     &.active {
-      background: $bg-active;
-      color: $text-primary;
+      background: $sb-active;
+      color: $text-hi;
       font-weight: 600;
 
       .nav-icon {
@@ -189,7 +366,7 @@ $transition: all .2s ease;
       &::before {
         content: '';
         position: absolute;
-        left: -0.6rem;
+        left: -.6rem;
         top: 50%;
         transform: translateY(-50%);
         width: 3px;
@@ -201,12 +378,7 @@ $transition: all .2s ease;
   }
 }
 
-// ── Spacer ──────────────────────────────
-.sidebar-spacer {
-  flex: 1;
-}
-
-// ── Footer / Logout ─────────────────────
+// ── Footer / Logout ───────────────────────────────────
 .sidebar-footer {
   padding: .4rem 0 .8rem;
   flex-shrink: 0;
@@ -224,14 +396,14 @@ $transition: all .2s ease;
   margin: 0 .6rem;
   padding: .65rem .85rem;
   border: none;
-  border-radius: $radius;
+  border-radius: $r;
   background: transparent;
   color: $text-muted;
-  font-family: 'Inter', sans-serif;
-  font-size: .85rem;
+  font-family: $font;
+  font-size: .86rem;
   font-weight: 500;
   cursor: pointer;
-  transition: $transition;
+  transition: $ease;
   text-align: left;
 
   .nav-icon {
@@ -242,23 +414,23 @@ $transition: all .2s ease;
     justify-content: center;
     border-radius: 7px;
     background: rgba(255, 255, 255, .05);
-    transition: $transition;
     flex-shrink: 0;
+    transition: $ease;
 
     svg {
       width: 15px;
       height: 15px;
       stroke: $text-muted;
-      transition: $transition;
+      transition: $ease;
     }
   }
 
   &:hover {
-    background: rgba(239, 68, 68, .12);
+    background: rgba($red, .12);
     color: #fca5a5;
 
     .nav-icon {
-      background: rgba(239, 68, 68, .2);
+      background: rgba($red, .2);
 
       svg {
         stroke: #f87171;
@@ -267,10 +439,43 @@ $transition: all .2s ease;
   }
 }
 
-// ── Main Content ────────────────────────
+// ── Main content area ─────────────────────────────────
 .content {
   flex: 1;
-  overflow-y: auto;
-  background: #f8fafc;
   min-width: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: #f8fafc;
+}
+
+// ── Responsive ────────────────────────────────────────
+@media (max-width: 768px) {
+
+  .lib-wrap {
+    display: block;
+    padding-top: 58px;
+  }
+
+  .mobile-bar {
+    display: flex;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 58px;
+    left: 0;
+    height: calc(100vh - 58px);
+    transform: translateX(-100%);
+    transition: transform .28s cubic-bezier(.4, 0, .2, 1);
+    z-index: 300;
+
+    &.open {
+      transform: translateX(0);
+    }
+  }
+
+  .content {
+    min-height: calc(100vh - 58px);
+    overflow-y: auto;
+  }
 }

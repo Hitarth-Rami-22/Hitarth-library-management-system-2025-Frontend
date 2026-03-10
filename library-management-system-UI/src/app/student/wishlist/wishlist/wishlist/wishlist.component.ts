@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { WishlistServiceService } from '../../service/wishlist/wishlist-service.service';
 import { TokenStorageService } from 'src/app/shared/token-storage/token-storage.service';
+import { ToastService } from 'src/app/shared/toast/toast.service';
 
 @Component({
   selector: 'app-wishlist',
@@ -15,7 +16,8 @@ export class WishlistComponent implements OnInit {
 
   constructor(
     private wishlistServiceService: WishlistServiceService,
-    private tokenService: TokenStorageService
+    private tokenService: TokenStorageService,
+    private toast: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -26,27 +28,27 @@ export class WishlistComponent implements OnInit {
   loadWishlist() {
     this.wishlistServiceService.getWishlist(this.studentId).subscribe({
       next: res => this.wishlist = res,
-      error: () => alert('Failed to load wishlist')
+      error: () => this.toast.error('Failed to load wishlist')
     });
   }
 
   addToWishlist() {
-    if (!this.bookIdInput.trim()) return alert('Enter a Book ID');
+    if (!this.bookIdInput.trim()) return this.toast.warning('Please enter a Book ID');
     const payload = { studentId: this.studentId, bookId: +this.bookIdInput };
     this.wishlistServiceService.addToWishlist(payload).subscribe({
       next: () => {
         this.bookIdInput = '';
         this.loadWishlist();
-        alert('Book added to wishlist');
+        this.toast.success('Book added to wishlist');
       },
-      error: () => alert('Failed to add to wishlist')
+      error: () => this.toast.error('Failed to add to wishlist')
     });
   }
 
   removeFromWishlist(id: number) {
     this.wishlistServiceService.removeFromWishlist(id).subscribe({
       next: () => this.loadWishlist(),
-      error: () => alert('Failed to remove from wishlist')
+      error: () => this.toast.error('Failed to remove from wishlist')
     });
   }
 }

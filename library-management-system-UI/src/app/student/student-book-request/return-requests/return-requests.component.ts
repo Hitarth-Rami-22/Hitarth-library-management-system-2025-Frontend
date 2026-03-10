@@ -1,74 +1,8 @@
-// import { Component, OnInit } from '@angular/core';
-// import { BookServiceService } from 'src/app/book/book/book/book-service/book-service.service';
-// import { TokenStorageService } from 'src/app/shared/token-storage/token-storage.service'; 
-// import { BorrowServiceService } from '../../borrow-service/borrow-service.service';
-
-// @Component({
-//   selector: 'app-return-requests',
-//   templateUrl: './return-requests.component.html',
-//   styleUrls: ['./return-requests.component.scss']
-// })
-// export class ReturnRequestsComponent implements OnInit {
-// approvedBooks: any[] = [];
-//   studentId: number = 0;
-
-//   constructor(
-//     private borrowService: BorrowServiceService,
-//     private tokenService: TokenStorageService
-//   ) {}
-
-//   ngOnInit(): void {
-//     const token = this.tokenService.getToken();
-//     if (token) {
-//       const payload = JSON.parse(atob(token.split('.')[1]));
-//       this.studentId = +payload["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"];
-//       this.loadApprovedBooks();
-//     }
-//   }
-
-//  loadApprovedBooks() {
-//   this.borrowService.getStudentRequests(this.studentId).subscribe({
-//     next: (res: any[]) => {
-//       // Show books that are Approved (1) and not yet returned or requested again
-//       this.approvedBooks = res.filter(r => r.status === 1);
-//     },
-//     error: () => alert('Failed to load approved books')
-//   });
-// }
-
-//   returnBook(requestId: number) {
-//     const payload = {
-//       requestId: requestId,
-//       newStatus: 3  // 3 = Returned
-//     };
-
-//     this.borrowService.updateStatus(payload).subscribe({
-//       next: (res: any) => {
-//         alert('✅ Return submitted!');
-//         this.loadApprovedBooks();
-//       },
-//       error: () => alert('❌ Failed to return book')
-//     });
-//   }
-//   submitReturnRequest(borrowId: number) {
-//   const payload = {
-//     requestId: borrowId,
-//     newStatus: 4  // 4 = Return Requested
-//   };
-//   this.borrowService.updateStatus(payload).subscribe({
-//     next: () => {
-//       alert('Return request sent!');
-//       this.loadApprovedBooks(); // Refresh list
-//     },
-//     error: () => alert('Failed to send return request.')
-//   });
-// }
-
-// }
 import { Component, OnInit } from '@angular/core';
 import { BookServiceService } from 'src/app/book/book/book/book-service/book-service.service';
 import { TokenStorageService } from 'src/app/shared/token-storage/token-storage.service'; 
 import { BorrowServiceService } from '../../borrow-service/borrow-service.service';
+import { ToastService } from 'src/app/shared/toast/toast.service';
 
 @Component({
   selector: 'app-return-requests',
@@ -82,7 +16,8 @@ export class ReturnRequestsComponent implements OnInit {
 
   constructor(
     private borrowService: BorrowServiceService,
-    private tokenService: TokenStorageService
+    private tokenService: TokenStorageService,
+    private toast: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -102,10 +37,15 @@ export class ReturnRequestsComponent implements OnInit {
         this.isLoading = false;
       },
       error: () => {
-        alert('Failed to load approved books');
+        this.toast.error('Failed to load approved books');
         this.isLoading = false;
       }
     });
+  }
+
+  getAccentColor(id: number): string {
+    const colors = ['#6366f1', '#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899'];
+    return colors[id % colors.length];
   }
 
   submitReturnRequest(borrowId: number) {
@@ -115,10 +55,10 @@ export class ReturnRequestsComponent implements OnInit {
     };
     this.borrowService.updateStatus(payload).subscribe({
       next: () => {
-        alert('Return request sent successfully!');
+        this.toast.success('Return request sent successfully!');
         this.loadApprovedBooks();
       },
-      error: () => alert('Failed to send return request')
+      error: () => this.toast.error('Failed to send return request')
     });
   }
 }

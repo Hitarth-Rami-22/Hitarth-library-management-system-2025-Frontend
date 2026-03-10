@@ -32,8 +32,8 @@
                 <span class="stat-num" *ngIf="!isLoading">{{ totalBooks }}</span>
                 <span class="stat-num loading-ph" *ngIf="isLoading">—</span>
                 <span class="stat-label">Total Books</span>
+                <div class="stat-trend up">↑ Library</div>
             </div>
-            <div class="stat-trend up">↑ Library</div>
         </div>
 
         <div class="stat-card amber" (click)="navigate('/librarian-dashboard/requests')">
@@ -46,9 +46,9 @@
                 <span class="stat-num" *ngIf="!isLoading">{{ pendingRequests }}</span>
                 <span class="stat-num loading-ph" *ngIf="isLoading">—</span>
                 <span class="stat-label">Pending Requests</span>
+                <div class="stat-trend" [ngClass]="pendingRequests > 0 ? 'warn' : 'up'">{{ pendingRequests > 0 ? 'Action
+                    needed' : 'All clear' }}</div>
             </div>
-            <div class="stat-trend" [ngClass]="pendingRequests > 0 ? 'warn' : 'up'">{{ pendingRequests > 0 ? 'Action
-                needed' : 'All clear' }}</div>
         </div>
 
         <div class="stat-card green" (click)="navigate('/librarian-dashboard/requests')">
@@ -61,8 +61,8 @@
                 <span class="stat-num" *ngIf="!isLoading">{{ approvedBorrows }}</span>
                 <span class="stat-num loading-ph" *ngIf="isLoading">—</span>
                 <span class="stat-label">Active Borrows</span>
+                <div class="stat-trend up">Currently out</div>
             </div>
-            <div class="stat-trend up">Currently out</div>
         </div>
 
         <div class="stat-card violet" (click)="navigate('/librarian-dashboard/return-approvals')">
@@ -75,9 +75,9 @@
                 <span class="stat-num" *ngIf="!isLoading">{{ returnRequests }}</span>
                 <span class="stat-num loading-ph" *ngIf="isLoading">—</span>
                 <span class="stat-label">Pending Returns</span>
+                <div class="stat-trend" [ngClass]="returnRequests > 0 ? 'warn' : 'up'">{{ returnRequests > 0 ? 'Needs
+                    approval' : 'None pending' }}</div>
             </div>
-            <div class="stat-trend" [ngClass]="returnRequests > 0 ? 'warn' : 'up'">{{ returnRequests > 0 ? 'Needs
-                approval' : 'None pending' }}</div>
         </div>
     </div>
 

@@ -1,6 +1,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { BorrowServiceService } from 'src/app/student/borrow-service/borrow-service.service';
+import { ToastService } from 'src/app/shared/toast/toast.service';
 
 @Component({
   selector: 'app-return-approvals',
@@ -11,7 +12,10 @@ export class ReturnApprovalsComponent implements OnInit {
   returnRequests: any[] = [];
   isLoading: boolean = true;
 
-  constructor(private borrowService: BorrowServiceService) {}
+  constructor(
+    private borrowService: BorrowServiceService,
+    private toast: ToastService
+  ) {}
 
   ngOnInit(): void {
     this.loadReturnRequests();
@@ -25,7 +29,7 @@ export class ReturnApprovalsComponent implements OnInit {
         this.isLoading = false;
       },
       error: () => {
-        alert('Failed to load return requests');
+        this.toast.error('Failed to load return requests');
         this.isLoading = false;
       }
     });
@@ -34,10 +38,10 @@ export class ReturnApprovalsComponent implements OnInit {
   approveReturn(borrowId: number) {
     this.borrowService.updateStatus({ requestId: borrowId, newStatus: 3 }).subscribe({
       next: () => {
-        alert('Book successfully marked as returned!');
+        this.toast.success('Book successfully marked as returned!');
         this.loadReturnRequests();
       },
-      error: () => alert('Failed to approve return')
+      error: () => this.toast.error('Failed to approve return')
     });
   }
 }

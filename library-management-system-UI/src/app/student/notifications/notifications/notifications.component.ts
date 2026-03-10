@@ -2,6 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NotificationServiceService } from '../../notification/notification-service.service'; 
 import { TokenStorageService } from 'src/app/shared/token-storage/token-storage.service';
+import { ToastService } from 'src/app/shared/toast/toast.service';
 
 @Component({
   selector: 'app-notifications',
@@ -15,7 +16,8 @@ export class NotificationsComponent implements OnInit {
 
   constructor(
     private notificationService: NotificationServiceService,
-    private tokenService: TokenStorageService
+    private tokenService: TokenStorageService,
+    private toast: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -31,7 +33,7 @@ export class NotificationsComponent implements OnInit {
         this.isLoading = false;
       },
       error: () => {
-        alert('Failed to load notifications');
+        this.toast.error('Failed to load notifications');
         this.isLoading = false;
       }
     });
@@ -46,7 +48,12 @@ export class NotificationsComponent implements OnInit {
           notification.isRead = true;
         }
       },
-      error: () => alert('Failed to mark as read')
+      error: () => this.toast.error('Failed to mark as read')
     });
+  }
+
+  getAccentColor(id: number): string {
+    const colors = ['#6366f1', '#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899'];
+    return colors[id % colors.length];
   }
 }

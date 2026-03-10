@@ -1,7 +1,7 @@
-
 import { Component, OnInit } from '@angular/core';
 import { BorrowServiceService } from 'src/app/student/borrow-service/borrow-service.service';
 import { TokenStorageService } from 'src/app/shared/token-storage/token-storage.service';
+import { ToastService } from 'src/app/shared/toast/toast.service';
 
 @Component({
   selector: 'app-history',
@@ -15,14 +15,15 @@ export class HistoryComponent implements OnInit {
 
   constructor(
     private borrowServiceService: BorrowServiceService,
-    private tokenStore: TokenStorageService
+    private tokenStore: TokenStorageService,
+    private toast: ToastService
   ) {}
 
   ngOnInit(): void {
     this.studentId = this.tokenStore.getUserId();
 
     if (!this.studentId) {
-      alert('Student ID not found in token!');
+      this.toast.error('Student ID not found in token!');
       return;
     }
 
@@ -38,7 +39,7 @@ export class HistoryComponent implements OnInit {
       },
       error: (err) => {
         console.error('Failed to load history:', err);
-        alert('Failed to load history');
+        this.toast.error('Failed to load history');
         this.isLoading = false;
       }
     });
@@ -60,5 +61,20 @@ export class HistoryComponent implements OnInit {
       case 12: return 'status-returned';
       default: return 'status-unknown';
     }
+  }
+
+  getCountByStatus(status: number): number {
+    return this.history.filter(item => item.status === status).length;
+  }
+
+  getPercent(status: number): string {
+    if (this.history.length === 0) return '0%';
+    const count = this.getCountByStatus(status);
+    return ((count / this.history.length) * 100) + '%';
+  }
+
+  getAccentColor(id: number): string {
+    const colors = ['#6366f1', '#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899'];
+    return colors[id % colors.length];
   }
 }

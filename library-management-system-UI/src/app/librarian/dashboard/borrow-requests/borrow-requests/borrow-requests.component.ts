@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BorrowServiceService } from 'src/app/student/borrow-service/borrow-service.service';
+import { ToastService } from 'src/app/shared/toast/toast.service';
 
 @Component({
   selector: 'app-borrow-requests',
@@ -13,7 +14,10 @@ export class BorrowRequestsComponent implements OnInit {
   isLoading: boolean = true;
   activeFilter: number | null = null;
 
-  constructor(private borrowServiceService: BorrowServiceService) {}
+  constructor(
+    private borrowServiceService: BorrowServiceService,
+    private toast: ToastService
+  ) {}
 
   ngOnInit(): void {
     this.loadRequests();
@@ -28,7 +32,7 @@ export class BorrowRequestsComponent implements OnInit {
         this.isLoading = false;
       },
       error: () => {
-        alert('Error loading requests');
+        this.toast.error('Error loading requests');
         this.isLoading = false;
       }
     });
@@ -61,8 +65,11 @@ export class BorrowRequestsComponent implements OnInit {
 
   updateStatus(id: number, newStatus: number) {
     this.borrowServiceService.updateStatus({ requestId: id, newStatus }).subscribe({
-      next: () => this.loadRequests(),
-      error: (err) => alert(err.error?.message || 'Failed to update')
+      next: () => {
+        this.toast.success(`Request ${this.getStatusText(newStatus).toLowerCase()} successfully`);
+        this.loadRequests();
+      },
+      error: (err) => this.toast.error(err.error?.message || 'Failed to update')
     });
   }
 

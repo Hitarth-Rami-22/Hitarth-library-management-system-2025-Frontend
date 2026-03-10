@@ -12,7 +12,6 @@ import { DashboardComponent } from './admin/dashboard/dashboard/dashboard.compon
 import { DashboardComponent as LibrarianDashboardHomeComponent } from './librarian/dashboard/dashboard/dashboard/dashboard.component';
 import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-//import { AuthInterceptor } from 'src/app/shared/intercepter/auth.interceptor';
 import { AuthInterceptor } from 'src/app/shared/intercepter/auth.interceptor';
 import { BookComponent } from './book/book/book/book.component';
 import { TokenStorageService } from './shared/token-storage/token-storage.service';
@@ -31,6 +30,23 @@ import { ReturnApprovalsComponent } from './librarian/dashboard/return-approvals
 import { WishlistComponent } from './student/wishlist/wishlist/wishlist/wishlist.component';
 import { NotificationsComponent } from './student/notifications/notifications/notifications.component';
 import { PenaltyListComponent } from './student/penalty-list/penalty-list/penalty-list.component';
+import { AdminHomeComponent } from './admin/dashboard/admin-home/admin-home.component';
+import { AdminUsersComponent } from './admin/dashboard/admin-users/admin-users.component';
+import { LandingComponent } from './landing/landing.component';
+
+// SaaS Student Shared Components
+import { PageHeaderComponent } from './student/shared/components/page-header/page-header.component';
+import { StatCardComponent } from './student/shared/components/stat-card/stat-card.component';
+import { DataTableComponent } from './student/shared/components/data-table/data-table.component';
+import { StatusBadgeComponent } from './student/shared/components/status-badge/status-badge.component';
+import { BookCardComponent } from './student/shared/components/book-card/book-card.component';
+
+// SaaS Student Redesigned Pages
+import { BrowseBooksComponent } from './student/browse-books/browse-books.component';
+import { BorrowedBooksComponent } from './student/borrowed-books/borrowed-books.component';
+import { PenaltiesComponent } from './student/penalties/penalties.component';
+import { StudentBorrowRequestsComponent } from './student/borrow-requests/borrow-requests.component';
+import { ToastModule } from './shared/toast/toast.module';
 
 
 @NgModule({
@@ -52,7 +68,21 @@ import { PenaltyListComponent } from './student/penalty-list/penalty-list/penalt
     WishlistComponent,
     NotificationsComponent,
     PenaltyListComponent,
-    LibrarianDashboardHomeComponent
+    AdminHomeComponent,
+    AdminUsersComponent,
+    LibrarianDashboardHomeComponent,
+    LandingComponent,
+    
+    // SaaS Components
+    PageHeaderComponent,
+    StatCardComponent,
+    DataTableComponent,
+    StatusBadgeComponent,
+    BookCardComponent,
+    BrowseBooksComponent,
+    BorrowedBooksComponent,
+    PenaltiesComponent,
+    StudentBorrowRequestsComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +90,8 @@ import { PenaltyListComponent } from './student/penalty-list/penalty-list/penalt
     AppRoutingModule,
     FormsModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    ToastModule
   ],
   providers: [
      { provide: HTTP_INTERCEPTORS, 
